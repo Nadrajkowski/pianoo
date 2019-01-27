@@ -1,0 +1,15 @@
+@font-face {
+    font-family: Future;
+    src: url('fonts/Outrun_future.otf');
+} 
+ @font-face {
+    font-family: Future;
+    font-weight: bold;
+    src: url('fonts/Outrun_future_Bold.otf');
+}
+ @font-face {
+    font-family: Future;
+    font-style: italic;
+    font-weight: bold;
+    src: url('fonts/Outrun_future_Bold_Italic.otf');
+}

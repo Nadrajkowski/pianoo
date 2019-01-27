@@ -1,0 +1,59 @@
+@import '../../shared/pallete.scss';
+
+$keyBackground: white;
+$keyBorderHover: blue;
+$keyBackgroundActive: lightgray;
+$label: $pink;
+$height: 100px;
+$width: 30px;
+
+.Key {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: $keyBackground;
+    border: 2px solid black;
+    height: $height;
+    width: $width;
+    display: flex;
+    align-content: center;
+    align-items: flex-end;
+    user-select: none;
+    cursor: pointer;
+    
+    label {
+        color: $label;
+        width: 100%;
+        text-align: center;
+        padding-bottom: .25rem;
+        user-select: none;
+    }
+}
+
+.shortBlack {
+    $blackKeyWidth: $width/1.25;
+    position: absolute;
+    height: $height/2;
+    width: $blackKeyWidth;
+    background-color: black;
+    border-color: $gray;
+    left: -($blackKeyWidth/2+1px);
+    label {
+        font-size: small;
+    }
+}
+
+.blackKeyWrapper {
+    width: 0;
+    height: 0;
+    position: relative;
+}
+
+.active {
+    background-color: $red;
+    label {
+        color: white;
+    }
+}
+
+
+
+

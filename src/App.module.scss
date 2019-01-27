@@ -1,0 +1,31 @@
+@import './shared/pallete.scss';
+
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    header, footer {
+        width: 100%;
+        background-color: $darkpurple;
+        color: $pink;
+        font-family: Future, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        padding: 1rem;
+    }
+    main {
+        padding: 1rem; 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-grow: 1;
+        width: 100%;
+    }
+    footer {
+        &:visited {
+            color: white;
+        }
+        a {
+            color: $pink;
+        }
+    }
+}

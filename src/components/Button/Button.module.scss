@@ -1,0 +1,14 @@
+@import '../../shared/pallete.scss';
+
+.Button {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: $gray;
+    border: 2px solid black;
+    cursor: pointer;
+    color: white;
+    height: 2rem;
+    min-width: 2rem;
+    &:active {
+        background-color: $red;
+    }
+}

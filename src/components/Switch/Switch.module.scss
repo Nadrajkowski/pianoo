@@ -1,0 +1,14 @@
+@import '../../shared/pallete.scss';
+.Switch {
+    padding: .25rem;
+    background-color: $gray;
+    width: fit-content;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    border: 2px solid black;
+    user-select: none;
+}
+
+.checked {
+    background-color: $red;
+}
