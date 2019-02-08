@@ -10,7 +10,8 @@ enum KeyTypes {
 }
 
 type Props = {
-    keyDetails: IKey
+    keyDetails: IKey,
+    synth: any
 } & typeof defaultProps;
 
 type State = typeof initialState;
@@ -18,9 +19,7 @@ type State = typeof initialState;
 const defaultProps = {
     keyType: KeyTypes.PianoLong,
     playOnHover: false,
-    playOnKeydown: false,
-    sharedSynth: null,
-    synth: null
+    playOnKeydown: false
 }
 
 const initialState = {
@@ -31,28 +30,15 @@ export default class Key extends React.Component<Props, State> {
     static readonly defaultProps = defaultProps;
     readonly state = initialState;
     static KeyTypes = KeyTypes;
-    localSynth: any;
-
-    componentDidMount() {
-        const {sharedSynth, synth} = this.props;
-        if (sharedSynth === null && synth === null) {
-            throw new Error('Synth and shared synth connot be both null');
-        }
-        console.trace('sharedSynth: ', sharedSynth);
-        console.trace('synth:', synth);
-        this.localSynth = sharedSynth ?
-            sharedSynth
-            : new (synth as any)().toMaster();
-    }
 
     triggerStart = () => {
         this.setState({isDown: true});
-        this.localSynth.triggerAttack(this.props.keyDetails.label);
+        this.props.synth.triggerAttack(this.props.keyDetails.label);
     }
 
     triggerStop = () => {
         this.setState({isDown: false});
-        this.localSynth.triggerRelease();
+        this.props.synth.triggerRelease();
     }
 
     mouseDown = () => {

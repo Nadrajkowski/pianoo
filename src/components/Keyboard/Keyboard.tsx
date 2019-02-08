@@ -20,7 +20,8 @@ const defaultProps = {
      * which will be achived by initialising a synth for each Key so it can start and stop individually.
      * This has a huge hit on performance so the Keyboard will share a synth when this flag is disabled.
      */
-    playMultipleTonesAtOnce: false
+    playMultipleTonesAtOnce: false,
+    volume: 0
 }
 
 const initialState = {
@@ -88,12 +89,10 @@ export default class Keyboard extends React.Component<Props, State> {
             {label: `C${transposition + 1}`, keyCode: KeyCodes.K}
         ]
 
-        let synth: any;
-        if (this.props.playMultipleTonesAtOnce) {
-            synth = this.props.synth;
-        } else {
-            this.sharedSynth = new this.props.synth().toMaster();
-            synth = null;
+        var vol = new Tone.Volume(this.props.volume);
+        if (!this.props.playMultipleTonesAtOnce) {
+            this.sharedSynth = new this.props.synth()
+                .chain(vol, Tone.Master);
         }
 
         const renderedKeys = keyConfigs.map((key: IKey) => {
@@ -102,6 +101,12 @@ export default class Keyboard extends React.Component<Props, State> {
                 Key.KeyTypes.PianoShort
                 : Key.KeyTypes.PianoLong;
 
+
+            const synth = this.props.playMultipleTonesAtOnce ?
+                new this.props.synth()
+                    .chain(vol, Tone.Master)
+                : this.sharedSynth;
+
             return (
                 <Key
                     keyDetails={key}
@@ -109,7 +114,6 @@ export default class Keyboard extends React.Component<Props, State> {
                     playOnHover={this.state.playOnHover}
                     playOnKeydown={this.state.playOnKeypress}
                     synth={synth}
-                    sharedSynth={this.sharedSynth}
                     keyType={keyType}
                 />
             )
