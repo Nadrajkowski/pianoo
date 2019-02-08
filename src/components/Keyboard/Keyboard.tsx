@@ -43,10 +43,6 @@ export default class Keyboard extends React.Component<Props, State> {
     static readonly defaultProps = defaultProps;
     sharedSynth: any
 
-    componentDidMount() {
-        
-    }
-
     togglePlayOnHover = () => {
         this.setState((prevState: State) => {
             return {playOnHover: !prevState.playOnHover};
