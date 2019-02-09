@@ -1,18 +1,10 @@
 import React from 'react';
-import styles from './Keyboard.module.scss';
 import { IKey } from '../../definitions/Key';
 import Key from '../Key/Key';
-import Tone, {Envelope, Instrument} from 'tone';
-import Switch from '../Switch/Switch';
+import Tone from 'tone';
 import { KeyCodes } from '../../enums/KeyCodes.enum';
-import Button from '../Button/Button';
 
-type Props = {
-    name: string
-    synth: any
-} & typeof defaultProps;
-
-type State = typeof initialState;
+type Props = typeof defaultProps;
 
 const defaultProps = {
     /**
@@ -21,54 +13,18 @@ const defaultProps = {
      * This has a huge hit on performance so the Keyboard will share a synth when this flag is disabled.
      */
     playMultipleTonesAtOnce: false,
-    volume: 0
-}
-
-const initialState = {
-    /** lets the Keyboard play when hovering above Keys*/
     playOnHover: false,
-    /** 
-     * enables playing by typing on phisical keyboard.
-     * The Keyboard will listen for keypresses globally which
-     * makes playing multiple Keyboards possible.
-     */
     playOnKeypress: false,
-    /** sets the base transposition of the Keyboard */
-    transposition: 3
+    synth: Tone.MonoSynth,
+    transposition: 3,
+    volume: 0,
 }
 
-export default class Keyboard extends React.Component<Props, State> {
-
-    readonly state = initialState;
-    static readonly defaultProps = defaultProps;
+export default class KeyBoard extends React.Component<Props> {
     sharedSynth: any
-
-    togglePlayOnHover = () => {
-        this.setState((prevState: State) => {
-            return {playOnHover: !prevState.playOnHover};
-        })
-    }
-
-    togglePlayOnKeypress = () => {
-        this.setState((prevState: State) => {
-            return {playOnKeypress: !prevState.playOnKeypress};
-        })
-    }
-
-    increaseTransposition = () => {
-        this.setState((prevState: State) => {
-            return {transposition: prevState.transposition + 1}
-        })
-    }
-
-    decreaseTransposition = () => {
-        this.setState((prevState: State) => {
-            return {transposition: prevState.transposition - 1}
-        })
-    }
-
-    render() {
-        const {transposition} = this.state;
+    static defaultProps = defaultProps;
+    getKeys = () => {
+        const {transposition} = this.props;
         const keyConfigs: IKey[] = [
             {label: `C${transposition}`, keyCode: KeyCodes.A},
             {label: `C#${transposition}`, keyCode: KeyCodes.W},
@@ -90,8 +46,7 @@ export default class Keyboard extends React.Component<Props, State> {
             this.sharedSynth = new this.props.synth()
                 .chain(vol, Tone.Master);
         }
-
-        const renderedKeys = keyConfigs.map((key: IKey) => {
+        return keyConfigs.map((key: IKey) => {
             // display black Key for sharp notes
             const keyType = key.label.includes('#') ?
                 Key.KeyTypes.PianoShort
@@ -107,36 +62,16 @@ export default class Keyboard extends React.Component<Props, State> {
                 <Key
                     keyDetails={key}
                     key={key.label}
-                    playOnHover={this.state.playOnHover}
-                    playOnKeydown={this.state.playOnKeypress}
+                    playOnHover={this.props.playOnHover}
+                    playOnKeydown={this.props.playOnKeypress}
                     synth={synth}
                     keyType={keyType}
                 />
             )
         });
-        return (
-            <section className={styles.Keyboard}>
-                <h3>{this.props.name}</h3>
+    }
 
-                <div className={styles.switches}>
-                    <Button onClick={this.decreaseTransposition}>-</Button>
-                    <Button onClick={this.increaseTransposition}>+</Button>
-                    <Switch
-                        label='Play on Hover'
-                        onChange={this.togglePlayOnHover}
-                        value={this.state.playOnHover}
-                    />
-                    <Switch
-                        label='Play on Keypress'
-                        onChange={this.togglePlayOnKeypress}
-                        value={this.state.playOnKeypress}
-                    />    
-                </div>
-                
-                <div className={styles.keys}>
-                    {renderedKeys}
-                </div>
-            </section>
-        );
+    render() {
+        return this.getKeys();
     }
 }

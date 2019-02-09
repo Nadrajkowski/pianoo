@@ -1,0 +1,27 @@
+@import '../../../shared/pallete.scss';
+.Keyboard {
+    width: fit-content;
+    height: fit-content;
+    background-color: $darkpurple;
+    padding: 1rem;
+    border-radius: 20px;
+    margin: 1rem;
+    color: $pink;
+    user-select: none;
+    border: 3px solid black;
+    h3 {
+        font-family: Future, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+}
+
+.keys {
+    display: flex;
+    margin-top: 1rem;
+    border: 2px solid black;
+}
+
+.switches {
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
+}
