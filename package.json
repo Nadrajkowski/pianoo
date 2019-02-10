@@ -1,7 +1,7 @@
 {
   "name": "pianoo",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",

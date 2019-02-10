@@ -4,8 +4,17 @@ $keyBackground: white;
 $keyBorderHover: blue;
 $keyBackgroundActive: lightgray;
 $label: $pink;
-$height: 100px;
-$width: 30px;
+$height: 10em;
+$width: 3em;
+
+$sizeXS: 8pt;
+$sizeS: 10pt;
+$sizeM: 12pt;
+$sizeL: 14pt;
+$sizeXL: 16pt;
+$sizeXXL: 30pt;
+
+
 
 .Key {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -28,17 +37,23 @@ $width: 30px;
     }
 }
 
+.size {
+    &-xs {font-size: $sizeXS;}
+    &-s {font-size: $sizeS;}
+    &-m {font-size: $sizeM;}
+    &-l {font-size: $sizeL;}
+    &-xl {font-size: $sizeXL;}
+    &-xxl {font-size: $sizeXXL;}
+}
+
 .shortBlack {
-    $blackKeyWidth: $width/1.25;
+    $blackKeyWidth: $width/1.5;
     position: absolute;
     height: $height/2;
     width: $blackKeyWidth;
     background-color: black;
     border-color: $gray;
-    left: -($blackKeyWidth/2+1px);
-    label {
-        font-size: small;
-    }
+    left: -($blackKeyWidth/2);
 }
 
 .blackKeyWrapper {
@@ -48,7 +63,7 @@ $width: 30px;
 }
 
 .active {
-    background-color: $red;
+    background-color: $label;
     label {
         color: white;
     }

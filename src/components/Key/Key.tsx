@@ -2,6 +2,7 @@ import React, { Fragment, ReactNode } from "react";
 import styles from './Key.module.scss';
 import KeyHandler, { KEYDOWN, KEYUP } from 'react-key-handler';
 import { IKey } from "../../definitions/Key";
+import { Size } from "../../definitions/Size";
 
 enum KeyTypes {
     PianoLong,
@@ -17,9 +18,11 @@ type Props = {
 type State = typeof initialState;
 
 const defaultProps = {
+    displayNote: true,
     keyType: KeyTypes.PianoLong,
     playOnHover: false,
-    playOnKeydown: false
+    playOnKeydown: false,
+    size: 'm' as Size
 }
 
 const initialState = {
@@ -83,6 +86,7 @@ export default class Key extends React.Component<Props, State> {
     renderKey = (additionlClassName : string = ''): ReactNode => {
         const className = `
             ${styles.Key}
+            ${styles[`size-${this.props.size}`]}
             ${this.state.isDown && styles.active}
             ${additionlClassName}
         `;
@@ -96,9 +100,11 @@ export default class Key extends React.Component<Props, State> {
                 onTouchStart={this.mouseDown}
                 onTouchEnd={this.mouseUp}
             >
-                <label>
-                    {this.props.keyDetails.label}
-                </label>
+                {this.props.displayNote && (
+                    <label>
+                        {this.props.keyDetails.label}
+                    </label>
+                )}
             </div>
         );
     }

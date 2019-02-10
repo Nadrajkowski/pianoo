@@ -16,7 +16,6 @@ class App extends React.Component {
           <MyKeyboard name='AM Synth' synth={Tone.AMSynth} playMultipleTonesAtOnce/>
           <MyKeyboard name='Duo Synth' synth={Tone.DuoSynth} volume={0}/>
           <MyKeyboard name='Solo Synth' synth={Tone.MonoSynth} volume={-20}/>
-          <KeyBoard />
         </main>
         <footer>
           <a target='#' href='https://github.com/nadrajkowski'>Kasper Nadrajkowki</a>
